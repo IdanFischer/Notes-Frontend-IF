@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
+import NoteEdit from "./NoteEdit"
+import NoteSimpleAdd from "./NoteSimpleAdd"
 
 
-export default function NoteAdd({ note, setNote, setNotes }) {
-  
+export default function NoteAdd({ note, setNote, setNotes, handleEditNote, noteId, setNoteId }) {
+
 
   const handleAddNote = e => {
     e.preventDefault()
-
     const newNote = {
       "note": note
     }
@@ -19,23 +20,36 @@ export default function NoteAdd({ note, setNote, setNotes }) {
       },
       body: JSON.stringify(newNote)
     })
-    .then(res => res.json())
-    .then(setNotes)
-    .catch(console.error)
+      .then(res => res.json())
+      .then(setNotes)
+      .catch(console.error)
   }
 
   return (
     <>
-      <Form onSubmit={handleAddNote}>
-        <Form.Group>
+      <Form>
+        {/* <Form.Group>
           <Form.Control 
           className="mb-1"
           value={note}
           onChange={e => setNote(e.target.value)}
           type="text"
           placeholder="Enter Your Note Here!" />
-        <Button onClick={handleAddNote}>add note</Button>
-        </Form.Group>
+          <Button type="submit">{noteId ? 'Update Note' : 'Add Note'}</Button>
+        </Form.Group> */}
+        {noteId
+          ?
+          <NoteEdit
+            handleEditNote={handleEditNote}
+            note={note}
+            setNote={setNote}
+          />
+          :
+          <NoteSimpleAdd
+            handleAddNote={handleAddNote}
+            note={note}
+            setNote={setNote} />
+        }
       </Form>
     </>
   )
