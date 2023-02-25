@@ -17,9 +17,10 @@
 
 .allnotes {
   border-bottom: 5px solid red;
-  color: wheat;
+  color: rgb(255, 255, 255);
+  font-size: 1.1em;
 }
 
-.form-all {
-
+.big-note {
+  color: wheat;
 }
